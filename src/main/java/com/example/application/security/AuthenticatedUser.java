@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Provides methods to interact with authenticated user
+ */
 @Component
 public class AuthenticatedUser {
 
@@ -28,5 +31,4 @@ public class AuthenticatedUser {
     public void logout() {
         authenticationContext.logout();
     }
-
 }

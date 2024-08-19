@@ -20,7 +20,7 @@ public class SecurityConfig extends VaadinWebSecurity {
     }
 
     /**
-     * Configuration for Hhtp requests
+     * Configuration for http requests
      * @param http used to define the security configuration for HTTP requests.
      * @throws Exception
      */

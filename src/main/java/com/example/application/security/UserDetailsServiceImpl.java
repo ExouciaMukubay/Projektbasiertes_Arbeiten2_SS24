@@ -12,6 +12,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Retrieves user details from database like username, password and roles
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -33,6 +36,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
     }
 
+    /**
+     * Converts user's roles into a list of GrantedAuthority objects
+     * @param user
+     * @return
+     */
     private static List<GrantedAuthority> getAuthorities(User user) {
         return user.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                 .collect(Collectors.toList());
