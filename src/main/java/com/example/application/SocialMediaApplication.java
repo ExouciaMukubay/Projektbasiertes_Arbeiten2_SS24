@@ -1,6 +1,6 @@
 package com.example.application;
 
-import com.example.application.data.UserRepository;
+import com.example.application.data.repository.UserRepository;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
 import javax.sql.DataSource;
@@ -19,10 +19,10 @@ import org.springframework.context.annotation.Bean;
  */
 @SpringBootApplication
 @Theme(value = "hilla-social-media-app")
-public class Application implements AppShellConfigurator {
+public class SocialMediaApplication implements AppShellConfigurator {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(SocialMediaApplication.class, args);
     }
 
     @Bean

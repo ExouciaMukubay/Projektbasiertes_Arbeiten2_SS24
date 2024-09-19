@@ -1,16 +1,18 @@
-package com.example.application.security;
+package com.example.application.data.security;
 
-import com.example.application.data.User;
-import com.example.application.data.UserRepository;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.example.application.data.model.User;
+import com.example.application.data.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Retrieves user details from database like username, password and roles
@@ -31,13 +33,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("No user present with username: " + username);
         } else {
-            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getHashedPassword(),
+            return new org.springframework.security.core.userdetails.User(user.getUsername(), new BCryptPasswordEncoder().encode(user.getPassword()),
                     getAuthorities(user));
         }
     }
 
     /**
      * Converts user's roles into a list of GrantedAuthority objects
+     *
      * @param user
      * @return
      */
@@ -46,5 +49,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .collect(Collectors.toList());
 
     }
-
 }

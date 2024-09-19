@@ -1,4 +1,4 @@
-package com.example.application.security;
+package com.example.application.data.security;
 
 import com.vaadin.flow.spring.security.VaadinWebSecurity;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +21,7 @@ public class SecurityConfig extends VaadinWebSecurity {
 
     /**
      * Configuration for http requests
+     *
      * @param http used to define the security configuration for HTTP requests.
      * @throws Exception
      */
@@ -38,6 +39,6 @@ public class SecurityConfig extends VaadinWebSecurity {
                                 AntPathRequestMatcher.antMatcher("/h2-console/**")));
 
         super.configure(http);
-        setLoginView(http, "/login");
+        setLoginView(http, "/login", "/");
     }
 }

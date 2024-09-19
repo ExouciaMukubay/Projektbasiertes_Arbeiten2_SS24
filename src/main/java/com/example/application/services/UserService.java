@@ -1,44 +1,54 @@
 package com.example.application.services;
 
-import com.example.application.data.User;
-import com.example.application.data.UserRepository;
-import java.util.Optional;
+import com.example.application.data.model.User;
+import com.example.application.data.repository.UserRepository;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
+import com.vaadin.hilla.BrowserCallable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.UUID;
+
+@AnonymousAllowed
+@BrowserCallable
 @Service
 public class UserService {
 
-    private final UserRepository repository;
+    private final UserRepository userRepository;
 
-    public UserService(UserRepository repository) {
-        this.repository = repository;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public Optional<User> get(Long id) {
-        return repository.findById(id);
+    public Optional<User> get(UUID id) {
+        return Optional.ofNullable(userRepository.findUserById(id));
     }
 
     public User update(User entity) {
-        return repository.save(entity);
+        return userRepository.save(entity);
     }
 
-    public void delete(Long id) {
-        repository.deleteById(id);
+    public User save(User user){
+        return userRepository.save(user);
+    }
+    public void delete(UUID id) {
+        userRepository.deleteUserById(id);
     }
 
     public Page<User> list(Pageable pageable) {
-        return repository.findAll(pageable);
+        return userRepository.findAll(pageable);
     }
 
     public Page<User> list(Pageable pageable, Specification<User> filter) {
-        return repository.findAll(filter, pageable);
+        // return userRepository.findAll(filter, pageable);
+        return null;
     }
 
     public int count() {
-        return (int) repository.count();
+        return (int) userRepository.count();
     }
 
 }
