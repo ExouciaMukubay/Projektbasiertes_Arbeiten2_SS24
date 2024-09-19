@@ -1,9 +1,10 @@
 import {ViewConfig} from '@vaadin/hilla-file-router/types.js';
 import {useSignal} from '@vaadin/hilla-react-signals';
-import {LoginI18n, LoginOverlay, LoginOverlayElement} from '@vaadin/react-components/LoginOverlay.js';
+import {LoginI18n, LoginOverlayElement} from '@vaadin/react-components/LoginOverlay.js';
 import {useAuth} from 'Frontend/util/auth.js';
 import {Button} from "@vaadin/react-components/Button.js";
 import {useNavigate} from "react-router-dom";
+import {LoginForm} from "@vaadin/react-components";
 
 export const config: ViewConfig = {
   menu: { exclude: true },
@@ -24,7 +25,8 @@ export default function LoginView() {
     };
   return (
       <div>
-    <LoginOverlay
+    <LoginForm
+        autofocus
         error={loginError.value}
       noForgotPassword
       i18n={loginI18n}
