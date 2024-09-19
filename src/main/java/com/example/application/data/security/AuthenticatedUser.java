@@ -1,13 +1,17 @@
-package com.example.application.security;
+package com.example.application.data.security;
 
-import com.example.application.data.User;
-import com.example.application.data.UserRepository;
+import com.example.application.data.model.User;
+import com.example.application.data.repository.UserRepository;
 import com.vaadin.flow.spring.security.AuthenticationContext;
-import java.util.Optional;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
+/**
+ * Provides methods to interact with authenticated user
+ */
 @Component
 public class AuthenticatedUser {
 
@@ -28,5 +32,4 @@ public class AuthenticatedUser {
     public void logout() {
         authenticationContext.logout();
     }
-
 }
