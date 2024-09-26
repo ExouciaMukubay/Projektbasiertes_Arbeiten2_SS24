@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.Length;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "social_media_user")
@@ -19,28 +20,32 @@ import java.util.Set;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends AbstractEntity{
+public class User{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @Length(min = 8, max = 20)
-    @NotNull
+    @NotEmpty(message = "Username must not be empty")
     @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "firstname")
-    @NotNull
+    @NotEmpty(message = "First name must not be empty")
     private String firstname;
 
     @Column(name = "lastname")
-    @NotNull
+    @NotEmpty(message = "Last name must not be empty")
     private String lastname;
 
     @Email
-    @NotEmpty
+    @NotEmpty(message = "Email must not be empty")
     @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "password")
-    @NotNull
+    @NotEmpty(message = "Password must not be empty")
     @Size(min = 8, max = 64, message = "Passwort muss 8 bis 64 Zeichen lang sein.")
     @EqualsAndHashCode.Include
     private String password;
@@ -48,14 +53,12 @@ public class User extends AbstractEntity{
     @Column(name = "biography")
     private String biography;
 
-    @Column(name = "phonenumber")
-    private String phoneNumber;
-
     @Column(name = "isonline")
     private boolean isOnline;
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
+    @NotNull
     private Set<Role> roles = new HashSet<>();
 
 //    @Column(name = "profilePictureUrl")
@@ -80,9 +83,6 @@ public class User extends AbstractEntity{
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Message> messages = new HashSet<>();
-
-    @OneToOne
-    private ChatOverview chatOverview;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<UserChat> userChat = new HashSet<>();

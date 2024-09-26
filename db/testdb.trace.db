@@ -1,0 +1,4 @@
+2024-09-25 03:04:27.289784+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabelle "SOCIAL_MEDIA_USER" nicht gefunden (diese Datenbank ist leer)
+Table "SOCIAL_MEDIA_USER" not found (this database is empty); SQL statement:
+select count(*) from social_media_user u1_0 [42104-224]

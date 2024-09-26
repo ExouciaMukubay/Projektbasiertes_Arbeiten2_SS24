@@ -31,6 +31,8 @@ export default function MainLayout() {
 
     return (
         <AppLayout primarySection="drawer">
+            {state.user ? (
+                <>
             <div slot="drawer" className="flex flex-col justify-between h-full p-m">
                 <header className="flex flex-col gap-m">
                     <span className="font-semibold text-l">My App</span>
@@ -62,9 +64,9 @@ export default function MainLayout() {
             </div>
 
             <DrawerToggle slot="navbar" aria-label="Menu toggle"></DrawerToggle>
-            <h1 slot="navbar" className="text-l m-0">
-                {documentTitleSignal}
-            </h1>
+                </>
+
+            ) : null}
 
             <Suspense>
                 <Outlet/>
