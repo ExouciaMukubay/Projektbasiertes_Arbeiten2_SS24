@@ -7,13 +7,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "likes")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Likes extends AbstractEntity {
+public class Likes {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @Column(name = "count")
     private Integer count = 0;

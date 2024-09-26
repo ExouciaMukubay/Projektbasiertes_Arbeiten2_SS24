@@ -3,6 +3,7 @@
   "license": "UNLICENSED",
   "type": "module",
   "dependencies": {
+    "@hilla/react-components": "^2.3.22",
     "@polymer/polymer": "3.5.1",
     "@vaadin/bundles": "24.4.5",
     "@vaadin/common-frontend": "0.0.19",
@@ -119,7 +120,7 @@
       "workbox-core": "7.1.0",
       "workbox-precaching": "7.1.0"
     },
-    "hash": "043b9f8dee5e276ddbe89164a18cce084b5b3e96bd7168ebdf89b2d99bf3c917"
+    "hash": "b7e5a4275e8a4fe418f19f34bf81f8464d0d1a891dd809d62a816b1824b99d94"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
@@ -159,6 +160,7 @@
     "@vaadin/react-components-pro": "$@vaadin/react-components-pro",
     "@vaadin/vaadin-themable-mixin": "$@vaadin/vaadin-themable-mixin",
     "@vaadin/vaadin-lumo-styles": "$@vaadin/vaadin-lumo-styles",
-    "@vaadin/vaadin-material-styles": "$@vaadin/vaadin-material-styles"
+    "@vaadin/vaadin-material-styles": "$@vaadin/vaadin-material-styles",
+    "@hilla/react-components": "$@hilla/react-components"
   }
 }
