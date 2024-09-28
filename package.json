@@ -3,7 +3,14 @@
   "license": "UNLICENSED",
   "type": "module",
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "@hilla/react-components": "^2.3.22",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@material-ui/utils": "^4.11.3",
+    "@mui/icons-material": "^6.1.1",
+    "@mui/material": "^6.1.1",
     "@polymer/polymer": "3.5.1",
     "@vaadin/bundles": "24.4.5",
     "@vaadin/common-frontend": "0.0.19",
@@ -55,7 +62,7 @@
     "strip-css-comments": "5.0.0",
     "transform-ast": "2.4.4",
     "typescript": "5.4.5",
-    "vite": "5.3.3",
+    "vite": "^5.4.8",
     "vite-plugin-checker": "0.6.4",
     "workbox-build": "7.1.1",
     "workbox-core": "7.1.0",
@@ -120,7 +127,7 @@
       "workbox-core": "7.1.0",
       "workbox-precaching": "7.1.0"
     },
-    "hash": "b7e5a4275e8a4fe418f19f34bf81f8464d0d1a891dd809d62a816b1824b99d94"
+    "hash": "f7498630acf64e5b2fa58adf0b4b6e689223c5d4e6cfcdbda8e1730de4c0072c"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
@@ -161,6 +168,13 @@
     "@vaadin/vaadin-themable-mixin": "$@vaadin/vaadin-themable-mixin",
     "@vaadin/vaadin-lumo-styles": "$@vaadin/vaadin-lumo-styles",
     "@vaadin/vaadin-material-styles": "$@vaadin/vaadin-material-styles",
-    "@hilla/react-components": "$@hilla/react-components"
+    "@hilla/react-components": "$@hilla/react-components",
+    "@emotion/react": "$@emotion/react",
+    "@emotion/styled": "$@emotion/styled",
+    "@mui/material": "$@mui/material",
+    "@mui/icons-material": "$@mui/icons-material",
+    "@material-ui/core": "$@material-ui/core",
+    "@material-ui/icons": "$@material-ui/icons",
+    "@material-ui/utils": "$@material-ui/utils"
   }
 }

@@ -35,15 +35,11 @@ export default function LoginView() {
     const loginError = useSignal(false);
     const navigate = useNavigate();
 
-    const onSignUp = () => {
-        navigate('/signup');
-    };
-
     return (
         <div>
             <LoginOverlay
                 opened autofocus
-                onForgotPassword={onSignUp}
+                onForgotPassword={() => navigate('/signup')}
                 error={loginError.value}
                 i18n={i18n}
                 onLogin={async ({detail: {username, password}}) => {
@@ -52,7 +48,7 @@ export default function LoginView() {
                     if (error) {
                         loginError.value = true;
                     } else {
-                        const url = redirectUrl ?? defaultUrl ?? '/';
+                        const url = redirectUrl ?? defaultUrl ?? '/home';
                         const path = new URL(url, document.baseURI).pathname;
                         console.log(document.baseURI);
                         console.log(path.toString());
