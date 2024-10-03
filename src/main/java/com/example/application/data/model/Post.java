@@ -1,10 +1,7 @@
 package com.example.application.data.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -14,6 +11,8 @@ import java.util.UUID;
 @Entity
 @Table(name = "posts")
 @Getter
+@Builder(toBuilder = true)
+
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -38,7 +37,7 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User creator;
+    private User user;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
     private Set<Comment> comments = new HashSet<>();

@@ -15,7 +15,6 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
-import ShareIcon from '@mui/icons-material/Share';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {red} from "@mui/material/colors";
 import {useAuth} from "Frontend/util/auth";
@@ -92,11 +91,6 @@ export default function PostCardView() {
                    <IconButton>
                        {true? <FavoriteIcon/> : <FavoriteBorderIcon/>}
                        </IconButton>
-
-                       <IconButton>
-                           {<ShareIcon/>}
-                       </IconButton>
-
                        <IconButton>
                            {<ChatBubbleIcon/>}
                        </IconButton>

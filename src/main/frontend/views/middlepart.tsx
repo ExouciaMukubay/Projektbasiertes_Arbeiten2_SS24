@@ -2,25 +2,32 @@ import {Avatar, Card, IconButton} from "@mui/material";
 import {Icon} from "@vaadin/react-components";
 import StoryCircleView from "Frontend/views/storys/storycircle";
 import PostCardView from "Frontend/views/posts/postcard";
+import {ViewConfig} from '@vaadin/hilla-file-router/types.js';
+import CreatePostModal from "Frontend/views/posts/createpostmodal";
+import {useState} from "react";
 
+export const config: ViewConfig = {
+    menu: {exclude: true},
+};
 
 export default function MiddlePartView() {
     const story = [1, 1, 1, 1];
     const posts = [1,1,1,1,1];
+    const [openCreatePostModal, setOpenCreatePostModal] = useState(false);
+    const handleCloseCreatePostModal=()=> setOpenCreatePostModal(false);
+
     const handleOpenCreatePostModal = () => {
+        setOpenCreatePostModal(true);
         console.log("open post model...")
     }
 
     return (
         <>
-            <span>
-            </span>
-            <span></span>
         <div className="px-20 mt-5">
             {/* ######: Story circle section */}
             <section className=" flex items-center p-5 roundded-b-md">
                 {/*___: Add "add" story circle */}
-                <div className="flex flex flex-col items-center mr-4 cursor-pointer">
+                <div className="flex flex flex-col items-center mr-4 cursor-pointer" style={{marginTop: "20px"}}>
                     <Avatar sx={{width: "3rem", height: "3rem"}}
                             className="flex flex-col items-center mr-4 cursor-pointer">
                         <Icon icon="vaadin:plus"></Icon>
@@ -36,7 +43,9 @@ export default function MiddlePartView() {
                 {/*___: Add avatar and input field into card */}
                 <div className="flex justify-between">
                     <Avatar/>
+                    {/*___: when input field is clicked, open postmodal */}
                     <input readOnly
+                           onClick={handleOpenCreatePostModal}
                            className="outline-none w-[90%] rounded-full px-5 bg-transparent border-[#3b4054] border"
                            type="text" placeholder="Crete new post..."/>
                 </div>
@@ -68,6 +77,10 @@ export default function MiddlePartView() {
             {/* ######: Add multiple PostCardViews*/}
             <div className="mt-5 space-y-5">
                 {posts.map((item) => <PostCardView/>)}
+            </div>
+            {/* when input field is clicked, open post modal*/}
+            <div>
+                <CreatePostModal open={openCreatePostModal} handleClose={handleCloseCreatePostModal}/>
             </div>
         </div>
             </>

@@ -57,7 +57,6 @@ export default function SignUpView() {
             user.password);
     };
 
-
     const onHandleSignUp = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         if (await UserService.checkIfUserAlreadyExists(user)) {

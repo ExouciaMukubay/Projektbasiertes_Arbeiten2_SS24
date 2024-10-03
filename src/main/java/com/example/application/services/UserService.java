@@ -7,10 +7,12 @@ import com.example.application.data.repository.UserRepository;
 import com.example.application.exceptions.UserNotFoundException;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
+import com.vaadin.hilla.Nullable;
+import com.vaadin.hilla.crud.filter.Filter;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -26,38 +28,33 @@ import java.util.UUID;
 public class UserService {
 
     private final UserRepository userRepository;
-
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Get user optional by given id
+     * @param id
+     * @return user or optional
+     */
     public Optional<User> get(UUID id) {
         return Optional.ofNullable(userRepository.findUserById(id));
     }
 
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
-    }
-
-    public boolean checkIfUserAlreadyExists(UserDto userDto){
-        log.info("Check if user with {} {} exists: {}", userDto.getUsername(), userDto.getEmail(),
-                userRepository.existsByUsernameOrEmail(userDto.getUsername(), userDto.getEmail()));
-        return userRepository.existsByUsernameOrEmail(userDto.getUsername(), userDto.getEmail());
-    }
-
-    public User updateUser(UserDto userDto) {
-        var user = userRepository.findByUsername(userDto.getUsername());
+    /**
+     * Find user by id
+     *
+     * @param id
+     * @return
+     */
+    public User findUser(UUID id) {
+        var user = userRepository.findUserById(id);
         if (user == null) {
-            log.error("User does not exist in database");
-            throw new UserNotFoundException("User does not exists!");
+            log.error("User by given id not found in database");
+            throw new UserNotFoundException("User by given id does not exists in database");
         } else {
-            user.setUsername(userDto.getUsername());
-            user.setFirstname(user.getFirstname());
-            user.setLastname(user.getLastname());
-            user.setEmail(userDto.getEmail());
-            user.setPassword(userDto.getPassword());
-            log.info("Update user succeed!");
-            return userRepository.save(user);
+            log.info("Find user by id succeed");
+            return user;
         }
     }
 
@@ -67,7 +64,7 @@ public class UserService {
      * @param username
      * @return
      */
-    public User findUserByUsername(String username) {
+    public User findUser(String username) {
         var user = userRepository.findByUsername(username);
         if (user == null) {
             log.error("Username not found in database");
@@ -76,6 +73,23 @@ public class UserService {
             log.info("Find username succeed");
             return user;
         }
+    }
+
+    public List<User> searchUser(String query){
+        return null;
+    }
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public List<@NonNull UserDto> list(Pageable pageable, @Nullable Filter filter) {
+        Page<User> users = userRepository.findAll(pageable);
+        return users.stream().map(UserDto :: fromEntity).toList();
+    }
+    public boolean checkIfUserAlreadyExists(UserDto userDto){
+        log.info("Check if user with {} {} exists: {}", userDto.getUsername(), userDto.getEmail(),
+                userRepository.existsByUsernameOrEmail(userDto.getUsername(), userDto.getEmail()));
+        return userRepository.existsByUsernameOrEmail(userDto.getUsername(), userDto.getEmail());
     }
 
     /**
@@ -107,29 +121,33 @@ public class UserService {
         }
     }
 
-    /**
-     * Deletes user or throws an exception if user does not exist
-     *
-     * @param id
-     */
-    public void deleteUser(UUID id) {
-        var user = userRepository.findUserById(id);
+    public User updateUser(UserDto userDto) {
+        log.info("Find ID: " +userDto.getId());
+        var user = userRepository.findUserById(userDto.getId());
         if (user == null) {
-            log.error("User does not exists in the database");
+            log.error("User does not exist in database");
             throw new UserNotFoundException("User does not exists!");
         } else {
+            log.info("User exists in database");
+            user.setUsername(userDto.getUsername());
+            user.setFirstname(userDto.getFirstName());
+            user.setLastname(userDto.getLastName());
+            user.setEmail(userDto.getEmail());
+            user.setPassword(userDto.getPassword());
+            user.setBiography(userDto.getBiography()) ;
+            log.info("Update user succeed!");
+          return userRepository.save(user);
+        }
+    }
+
+    /**
+     * Deletes user
+     *
+     * @param user
+     */
+    public void deleteUser(User user) {
             log.info("Delete user succeed.");
             userRepository.delete(user);
         }
     }
 
-    public Page<User> list(Pageable pageable) {
-        return userRepository.findAll(pageable);
-    }
-
-    public Page<User> list(Pageable pageable, Specification<User> filter) {
-        // return userRepository.findAll(filter, pageable);
-        return null;
-    }
-
-}

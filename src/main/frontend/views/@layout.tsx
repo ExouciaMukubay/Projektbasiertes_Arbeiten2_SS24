@@ -50,7 +50,7 @@ export default function MainLayout() {
 
     return (
         <AppLayout primarySection="drawer">
-            <DrawerToggle slot="navbar" aria-label="Menu toggle"></DrawerToggle>
+            <DrawerToggle  slot="navbar" aria-label="Menu toggle"></DrawerToggle>
             <h1 slot="navbar" style={h1Style}>
                 Social Media App
             </h1>
@@ -83,7 +83,7 @@ export default function MainLayout() {
                                         {state.user.firstname} {state.user.lastname}
                                     </div>
                                     <div className="flex items-center gap-s opacity-70">
-                                        <p className="italic">@{state.user.username}</p>
+                                        <p className="italic">@{state.user.username?.toLowerCase()}</p>
                                     </div>
 
                                     {/*___: add button to sign out */}

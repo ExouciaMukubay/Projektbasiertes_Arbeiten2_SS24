@@ -29,14 +29,15 @@ export default function HomeView() {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={1} minHeight={160}>
             {/* Add two grid items */}
+
             {/* Add grid item: HomeRightView*/}
             <Grid display="flex" justifyContent="center" alignItems="center" size="grow">
             <MiddlePartView></MiddlePartView>
-         </Grid>
-            {/* Add grid item: HomeRightView*/}
+             </Grid>
+            {/*___:Add grid item: HomeRightView*/}
             <Grid display="flex" justifyContent="center" alignItems="center" size="grow">
             <HomerightView></HomerightView>
-          </Grid>
+            </Grid>
         </Grid>
       </Box>
   );
