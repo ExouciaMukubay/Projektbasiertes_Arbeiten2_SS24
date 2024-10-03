@@ -83,10 +83,12 @@ public class PostService {
             Post newPost = Post.builder()
                     .creationDateTime(LocalDateTime.now())
                     .content(postDto.getContent())
+                    .imageUrl(postDto.getImageUrl())
                     .user(user)
                     .build();
-            log.info("Creating new post succeed!");
+            user.getCreatedPosts().add(newPost);
             postRepository.save(newPost);
+            log.info("Creating new post succeed!");
         }
     }
 
@@ -98,6 +100,7 @@ public class PostService {
     public void updatePost(PostDto postDto) {
         var post = postRepository.findPostById(postDto.getId());
         post.setContent(postDto.getContent());
+        post.setImageUrl(postDto.getImageUrl());
         postRepository.save(post);
     }
 
