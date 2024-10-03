@@ -116,10 +116,6 @@ export default function ProfileView() {
                     </section>
                 </div>
             </div>
-            <section>
-                <Editprofile
-                />
-            </section>
         </Card>
     );
 }

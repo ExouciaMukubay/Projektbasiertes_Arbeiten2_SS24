@@ -65,21 +65,19 @@ public class User{
 //    private String profilePictureUrl;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Likes> likes = new HashSet<>();
+    private Set<Like> likedPosts = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Post> posts = new HashSet<>();
+    private Set<Save> savedPosts = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Post> createdPosts = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Comment> comments = new HashSet<>();
 
-    // sending friendships requests
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Friendship> friendshipsInitiated = new HashSet<>();
-
-    // receiving all friendships requests
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Friendship> friendshipsReceived = new HashSet<>();
+    private Set<Friendship> friends = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Message> messages = new HashSet<>();

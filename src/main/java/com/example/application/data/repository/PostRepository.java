@@ -1,7 +1,7 @@
 package com.example.application.data.repository;
 
 import com.example.application.data.model.Post;
-import com.example.application.data.model.User;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,9 +11,11 @@ import java.util.UUID;
 @Repository
 public interface PostRepository extends JpaRepository<Post, UUID> {
 
-  List<Post> findAllByUser(User user);
+    List<Post> findAllByUserId(UUID userId);
 
-  Post findPostById(UUID id);
+    List<Post> findAllByUserIdIn(List<UUID> userIds, Sort sort);
 
-  void deletePostById(UUID id);
+    Post findPostById(UUID id);
+
+    void deletePostById(UUID id);
 }

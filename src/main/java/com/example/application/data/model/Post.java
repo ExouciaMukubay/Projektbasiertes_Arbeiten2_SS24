@@ -33,7 +33,11 @@ public class Post {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Column(name = "likes")
-    private Set<Likes> likes = new HashSet<>();
+    private Set<Like> likes = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column(name = "saves")
+    private Set<Save> saves = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -68,7 +68,7 @@ export default function Editprofile() {
     }
 
     return (
-        <div>
+        <div className={"editProfileForm"}>
             <Button sx={{borderRadius: "20px"}} variant="outlined" onClick={onHandleOpenEditForm}>Edit Profile</Button>
             <Modal
                 open={openModal}

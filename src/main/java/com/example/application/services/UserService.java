@@ -1,6 +1,9 @@
 package com.example.application.services;
 
 import com.example.application.data.enums.Role;
+import com.example.application.data.model.Friendship;
+import com.example.application.data.model.Like;
+import com.example.application.data.model.Post;
 import com.example.application.data.model.User;
 import com.example.application.data.model.dto.UserDto;
 import com.example.application.data.repository.UserRepository;
@@ -21,6 +24,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ *
+ */
 @AnonymousAllowed
 @BrowserCallable
 @Slf4j
@@ -28,12 +34,14 @@ import java.util.UUID;
 public class UserService {
 
     private final UserRepository userRepository;
+
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     /**
      * Get user optional by given id
+     *
      * @param id
      * @return user or optional
      */
@@ -75,19 +83,35 @@ public class UserService {
         }
     }
 
-    public List<User> searchUser(String query){
-        return null;
+    /**
+     * Search user by given query
+     * @param query
+     * @return List of Users
+     */
+    public List<User> searchUser(String query) {
+        return userRepository.searchUser(query);
     }
+
+    /**
+     * Find all users
+     * @return List of users
+     */
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
 
     public List<@NonNull UserDto> list(Pageable pageable, @Nullable Filter filter) {
         Page<User> users = userRepository.findAll(pageable);
-        return users.stream().map(UserDto :: fromEntity).toList();
+        return users.stream().map(UserDto::fromEntity).toList();
     }
-    public boolean checkIfUserAlreadyExists(UserDto userDto){
-        log.info("Check if user with {} {} exists: {}", userDto.getUsername(), userDto.getEmail(),
+
+    /**
+     *
+     * @param userDto
+     * @return
+     */
+    public boolean checkIfUserAlreadyExists(UserDto userDto) {
+        log.info("Check if user exists {} exists: {}", userDto.getUsername(),
                 userRepository.existsByUsernameOrEmail(userDto.getUsername(), userDto.getEmail()));
         return userRepository.existsByUsernameOrEmail(userDto.getUsername(), userDto.getEmail());
     }
@@ -122,21 +146,40 @@ public class UserService {
     }
 
     public User updateUser(UserDto userDto) {
-        log.info("Find ID: " +userDto.getId());
+        log.info("Find ID: " + userDto.getId());
         var user = userRepository.findUserById(userDto.getId());
         if (user == null) {
             log.error("User does not exist in database");
             throw new UserNotFoundException("User does not exists!");
         } else {
             log.info("User exists in database");
-            user.setUsername(userDto.getUsername());
-            user.setFirstname(userDto.getFirstName());
-            user.setLastname(userDto.getLastName());
-            user.setEmail(userDto.getEmail());
-            user.setPassword(userDto.getPassword());
-            user.setBiography(userDto.getBiography()) ;
+
+            if(!user.getUsername().equals(userDto.getUsername())) {
+                user.setUsername(userDto.getUsername());
+            }
+
+            if(!user.getFirstname().equals(userDto.getFirstName())) {
+                user.setFirstname(userDto.getFirstName());
+            }
+
+            if(!user.getLastname().equals(userDto.getLastName())) {
+                user.setLastname(userDto.getLastName());
+            }
+
+            if(!user.getEmail().equals(userDto.getEmail())) {
+                user.setEmail(userDto.getEmail());
+            }
+
+            if(!user.getBiography().equals(userDto.getBiography())) {
+                user.setBiography(userDto.getBiography());
+            }
+
+            if(!user.getPassword().equals(userDto.getPassword())) {
+                user.setPassword(userDto.getPassword());
+            }
+
             log.info("Update user succeed!");
-          return userRepository.save(user);
+            return userRepository.save(user);
         }
     }
 
@@ -146,8 +189,20 @@ public class UserService {
      * @param user
      */
     public void deleteUser(User user) {
-            log.info("Delete user succeed.");
-            userRepository.delete(user);
-        }
+        log.info("Delete user succeed.");
+        userRepository.delete(user);
     }
 
+    public Set<Friendship> getAllFriendsFromUser(UUID userId){
+        return userRepository.findUserById(userId).getFriends();
+    }
+
+
+    public int countFriendships(UUID userId){
+        return userRepository.findUserById(userId).getFriends().size();
+    }
+
+    public List<Post> getLikedPostsFromUser(UUID userId){
+        return userRepository.findUserById(userId).getLikedPosts().stream().map(Like::getPost).toList();
+    }
+}

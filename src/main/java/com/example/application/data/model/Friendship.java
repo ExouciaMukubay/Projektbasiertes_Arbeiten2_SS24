@@ -3,21 +3,21 @@ package com.example.application.data.model;
 import com.example.application.data.enums.FriendshipStatus;
 import com.example.application.data.keys.FriendshipKey;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "friendship")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Friendship {
 
     @EmbeddedId
-    private FriendshipKey id;
+    private FriendshipKey key;
 
     @ManyToOne(optional = false)
     @MapsId("userId")
@@ -31,4 +31,6 @@ public class Friendship {
 
     @Enumerated(EnumType.STRING)
     private FriendshipStatus friendshipStatus;
+
+    private LocalDateTime createdAt;
 }
