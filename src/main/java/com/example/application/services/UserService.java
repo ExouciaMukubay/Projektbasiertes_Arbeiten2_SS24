@@ -197,6 +197,9 @@ public class UserService {
         return userRepository.findUserById(userId).getFriends();
     }
 
+    public int countCreatedPosts(UUID userId){
+        return userRepository.findUserById(userId).getCreatedPosts().size();
+    }
 
     public int countFriendships(UUID userId){
         return userRepository.findUserById(userId).getFriends().size();

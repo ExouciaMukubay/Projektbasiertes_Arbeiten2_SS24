@@ -37,9 +37,6 @@ public class SaveService {
         post.getSaves().add(save);
         user.getSavedPosts().add(save);
         saveRepository.save(save);
-        userRepository.save(user);
-        postRepository.save(post);
-
         log.info("Save post with id {} succeed", postId);
     }
 
@@ -53,8 +50,6 @@ public class SaveService {
         post.getSaves().remove(save);
         user.getSavedPosts().remove(save);
         saveRepository.delete(save);
-        userRepository.save(user);
-        postRepository.save(post);
         log.info("Remove save post with id {} succeed", postId);
 
     }

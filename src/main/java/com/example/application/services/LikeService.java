@@ -36,9 +36,7 @@ public class LikeService {
         post.getLikes().add(like);
         user.getLikedPosts().add(like);
         likesRepository.save(like);
-        userRepository.save(user);
-        postRepository.save(post);
-        log.info("Like post with id {} succeed", postId);
+          log.info("Like post with id {} succeed", postId);
 
     }
 
@@ -52,8 +50,6 @@ public class LikeService {
         post.getLikes().remove(like);
         user.getLikedPosts().remove(like);
         likesRepository.delete(like);
-        userRepository.save(user);
-        postRepository.save(post);
         log.info("Remove like from post with id {} succeed", postId);
     }
 

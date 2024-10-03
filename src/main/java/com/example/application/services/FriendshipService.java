@@ -61,10 +61,6 @@ public class FriendshipService {
         user.getFriends().add(friendship);
         friend.getFriends().add(friendship);
 
-
-        userRepository.save(user);
-        userRepository.save(friend);
-
         log.info("Save friendship from current user {} and friend {}", user.getUsername(), friend.getUsername());
         return friendshipRepository.save(friendship);
     }
@@ -93,12 +89,7 @@ public class FriendshipService {
 
         user.getFriends().remove(friendship);
         friend.getFriends().remove(friendship);
-
-        userRepository.save(user);
-        userRepository.save(friend);
-
         log.info("Deleting friendship suceed!");
-
         friendshipRepository.delete(friendship);
     }
 
