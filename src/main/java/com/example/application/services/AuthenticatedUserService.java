@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Optional;
 
 /**
- * AuthenticatedUserService gets authenticated user
+ *  Provides methods to get authenticated user
  */
 @Endpoint
 @AnonymousAllowed

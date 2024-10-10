@@ -7,13 +7,8 @@ import com.example.application.data.repository.UserRepository;
 import com.example.application.exceptions.PostException;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
-import com.vaadin.hilla.Nullable;
-import com.vaadin.hilla.crud.filter.Filter;
 import lombok.AllArgsConstructor;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +19,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Provides methods to find, save, update and delete post
+ */
 @AnonymousAllowed
 @AllArgsConstructor
 @BrowserCallable
@@ -35,11 +33,12 @@ public class PostService {
 
     private final UserRepository userRepository;
 
-    public List<@NonNull PostDto> list(Pageable pageable, @Nullable Filter filter) {
-        Page<Post> posts = postRepository.findAll(pageable);
-        return posts.stream().map(PostDto::fromEntity).toList();
-    }
-
+    /**
+     * Find all posts from user
+     *
+     * @param userId
+     * @return List<PostDto> list of posts from user
+     */
     public List<PostDto> findAllPostsByGivenUserId(UUID userId) {
         var posts = postRepository.findAllByUserId(userId, Sort.by(Sort.Direction.DESC, "creationDateTime"));
         return posts.stream()
@@ -47,6 +46,12 @@ public class PostService {
                 .map(PostDto::fromEntity).toList();
     }
 
+    /**
+     * Find all posts from user and from his friends
+     *
+     * @param userId
+     * @return List<PostDto> list of posts from user and friends, in case user has no friends only his posts
+     */
     public List<PostDto> findAllPostsFromGivenUserAndFriends(UUID userId) {
         // in case when user does not have friends yet
         if (userRepository.findUserById(userId).getFriends().isEmpty()) {
@@ -76,7 +81,7 @@ public class PostService {
 
 
     /**
-     * Add new post
+     * Create new post
      *
      * @param userId
      * @param postDto
@@ -114,39 +119,52 @@ public class PostService {
     }
 
 
+    /**
+     * Delete post
+     *
+     * @param postId
+     */
     @Transactional
     public void deletePostById(UUID postId) {
         log.info("Delete post by postId {} succeed!", postId);
         postRepository.deletePostById(postId);
     }
 
-
+    /**
+     * Get liked posts from user
+     *
+     * @param userId
+     * @return List<PostDto> list of liked posts
+     */
     public List<PostDto> getLikedPostsFromUser(UUID userId) {
         return userRepository
                 .findUserById(userId)
                 .getLikedPosts()
                 .stream().map(Like::getPost)
                 .sorted(Comparator.comparing(Post::getCreationDateTime).reversed())
-                .map(PostDto :: fromEntity)
+                .map(PostDto::fromEntity)
                 .toList();
     }
 
+    /**
+     * Get saved posts from user
+     *
+     * @param userId
+     * @return List<PostDto> list of saved posts
+     */
     public List<PostDto> getSavedPostsFromUser(UUID userId) {
         return userRepository
                 .findUserById(userId)
                 .getSavedPosts()
                 .stream().map(Save::getPost)
                 .sorted(Comparator.comparing(Post::getCreationDateTime).reversed())
-                .map(PostDto :: fromEntity)
+                .map(PostDto::fromEntity)
                 .toList();
     }
 
-    public int countLikesOfPost(UUID postId) {
-        return postRepository.findPostById(postId).getLikes().size();
-    }
-
-    public int countSavingsFromPost(UUID postId) {
-        return postRepository.findPostById(postId).getSaves().size();
-    }
+        /*  public List<@NonNull PostDto> list(Pageable pageable, @Nullable Filter filter) {
+        Page<Post> posts = postRepository.findAll(pageable);
+        return posts.stream().map(PostDto::fromEntity).toList();
+    }*/
 
 }

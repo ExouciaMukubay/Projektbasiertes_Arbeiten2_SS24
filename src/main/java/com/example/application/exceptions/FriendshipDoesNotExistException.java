@@ -7,9 +7,5 @@ public class FriendshipDoesNotExistException extends RuntimeException{
     public FriendshipDoesNotExistException(String message) {
         super(message);
     }
-
-    public FriendshipDoesNotExistException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }
 

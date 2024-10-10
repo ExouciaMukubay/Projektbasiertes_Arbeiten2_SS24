@@ -1,9 +1,13 @@
 import React, {useRef, useState} from "react";
 import {UserService} from "Frontend/generated/endpoints";
-import UserDto from "Frontend/generated/com/example/application/data/model/dto/UserDto";
 import SearchUserCards from "Frontend/views/searchuser/searchusercards";
 import {Card} from "@mui/material";
+import UserDto from "Frontend/generated/com/example/application/data/model/dto/UserDto";
 
+/**
+ * Displays view to search user
+ * @constructor
+ */
 export default function SearchUserView() {
 
     const [username, setUsername] = useState("");

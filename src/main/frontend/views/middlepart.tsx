@@ -6,14 +6,18 @@ import React, {useEffect, useRef, useState} from "react";
 import {PostService} from "Frontend/generated/endpoints";
 import {useAuth} from "Frontend/util/auth";
 import PostCardView from "./posts/postcard";
-import PostDto from "Frontend/generated/com/example/application/data/model/dto/PostDto";
 import {stringAvatar, StyledBadge} from "Frontend/util/styling";
+import PostDto from "Frontend/generated/com/example/application/data/model/dto/PostDto";
 
 export const config: ViewConfig = {
     menu:
         {exclude: true},
 }
 
+/**
+ * Displays postcards and comments
+ * @constructor
+ */
 export default function MiddlePartView() {
     const {state} = useAuth();
     const [posts, setPosts] = useState<PostDto[]>([]);

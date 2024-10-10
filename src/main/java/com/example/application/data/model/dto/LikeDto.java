@@ -12,7 +12,6 @@ import lombok.*;
 public class LikeDto {
 
     private LikeKey key;
-
     public static LikeDto fromEntity(Like like){
         return new LikeDto(like.getKey());
     }

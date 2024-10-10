@@ -13,11 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 /**
- *
+ * Provides methods to find, send, accept and decline friendship
  */
 @AnonymousAllowed
 @BrowserCallable
@@ -36,7 +35,6 @@ public class FriendshipService {
      *
      * @param userId   the sender
      * @param friendId the receiver
-     * @return
      */
     public void sendFriendRequest(UUID userId, UUID friendId) {
         log.info("Sending friend request from user {} to friend user {} in progress!", userId, friendId);
@@ -62,6 +60,11 @@ public class FriendshipService {
     }
 
 
+    /**
+     * Accept friendship request
+     * @param userId
+     * @param friendId
+     */
       public void acceptFriendRequest(UUID userId, UUID friendId) {
           log.info("Accept friend request from friend {} to current user {} in progress!", friendId, userId);
 
@@ -78,7 +81,11 @@ public class FriendshipService {
       }
 
 
-
+    /**
+     * Decline friendship request
+     * @param userId
+     * @param friendId
+     */
       public void declineFriendshipRequest(UUID userId, UUID friendId) {
           log.info("Reject friend request from friend {} to current user {}", friendId, userId);
           var friendship = findOneSideFriendshipFromUsersBidirectionalRelationship(userId, friendId);
@@ -87,6 +94,13 @@ public class FriendshipService {
           friendshipRepository.save(friendship);
       }
 
+    /**
+     * Find friendship
+     * @param userId
+     * @param friendId
+     * @return
+     */
+    //TODO: Bug
     public FriendshipDto findFriendship(UUID userId, UUID friendId) {
         log.info("Find friendship between current user {} and friend {}", userId, friendId);
         var friendship = findOneSideFriendshipFromUsersBidirectionalRelationship(userId, friendId);
@@ -99,7 +113,7 @@ public class FriendshipService {
         return FriendshipDto.fromEntity(friendship);
     }
 
-    public List<FriendshipDto> getAllAcceptedFriendshipByUserId(UUID userId) {
+  /*  public List<FriendshipDto> getAllAcceptedFriendshipByUserId(UUID userId) {
         return friendshipRepository.findFriendshipsByUserIdAndFriendshipStatus(userId, FriendshipStatus.ACCEPTED).stream().map(FriendshipDto::fromEntity).toList();
     }
 
@@ -107,9 +121,10 @@ public class FriendshipService {
         var user = userRepository.findUserById(userId);
         return friendshipRepository.findFriendshipsByUserIdAndFriendshipStatus(userId, FriendshipStatus.PENDING).stream().map(FriendshipDto::fromEntity).toList();
     }
-
+*/
     /**
      *
+     * Check if friendship is pending
      * @param userId
      * @param friendId
      * @return
@@ -128,10 +143,10 @@ public class FriendshipService {
 
 
     /**
-     *
+     * Check if friendship is saved twice by different ids
      * @param userId
      * @param friendId
-     * @return
+     * @return true if not else false if friendship is saved in database twice
      */
     private boolean checkIfOneSidedFriendshipRequestExist(UUID userId, UUID friendId) {
         var friendship1 = friendshipRepository.findFriendshipByUserIdAndFriendId(userId, friendId);
@@ -164,18 +179,15 @@ public class FriendshipService {
     }
 
     /**
-     *
+     * Check if user initiated friend request
      * @param userId
      * @param friendId
-     * @return
+     * @return true or else false
      */
     public boolean checkIfCurrentUserInitiatedFriendRequest(UUID userId, UUID friendId) {
         var friendship = findOneSideFriendshipFromUsersBidirectionalRelationship(userId, friendId);
         return friendship.getInitiatedByUserId().equals(userId);
     }
-
-    public List<FriendshipDto> getFriendshipsFromUser ( UUID userId){
-        return friendshipRepository.findAllByUserId(userId).stream().map(FriendshipDto :: fromEntity).toList();
-    }
+    
 }
 

@@ -11,13 +11,8 @@ import com.example.application.data.repository.UserRepository;
 import com.example.application.exceptions.UserNotFoundException;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
-import com.vaadin.hilla.Nullable;
-import com.vaadin.hilla.crud.filter.Filter;
 import lombok.AllArgsConstructor;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -35,8 +30,6 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final FriendshipRepository friendshipRepository;
-
-    //TODO: friendshiprepo, messages, unc.co
 
     /**
      * Get user optional by given id
@@ -106,15 +99,15 @@ public class UserService {
         return userRepository.findAll().stream().map(UserDto :: fromEntity).toList();
     }
 
-    //TODO?
-    public List<@NonNull UserDto> list(Pageable pageable, @Nullable Filter filter) {
+
+    /*public List<@NonNull UserDto> list(Pageable pageable, @Nullable Filter filter) {
         Page<User> users = userRepository.findAll(pageable);
         return users.stream().map(UserDto::fromEntity).toList();
-    }
+    }*/
 
     /**
      * Check if user already exists by signing up
-     * @param userDto
+     * @param userDto user
      * @return true if user exists in database or false if not
      */
     public boolean checkIfUserAlreadyExists(UserDto userDto) {
@@ -206,6 +199,7 @@ public class UserService {
         userRepository.delete(userRepository.findUserById(userDto.getId()));
     }
 
+    //TODO: BUG
     public Set<UserDto> getAllFriendsFromUser(UUID userId){
         log.info("Get all friends from user {} in progress!", userId);
       return friendshipRepository.findAllByUserId(userId).stream().map(Friendship::getFriend).

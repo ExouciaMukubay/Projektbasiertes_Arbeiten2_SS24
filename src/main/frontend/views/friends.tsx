@@ -15,6 +15,10 @@ export const config: ViewConfig = {
     loginRequired: true,
 };
 
+/**
+ * Displays friend view [in progress]
+ * @constructor
+ */
 export default function FriendsView() {
     return (
         <div>

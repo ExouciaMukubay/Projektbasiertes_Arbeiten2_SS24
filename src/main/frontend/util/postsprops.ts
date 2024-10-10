@@ -1,8 +1,9 @@
-import CommentDto from "Frontend/generated/com/example/application/data/model/dto/CommentDto";
-import PostDto from "Frontend/generated/com/example/application/data/model/dto/PostDto";
 import * as React from "react";
 import User from "Frontend/generated/com/example/application/data/model/User";
+import CommentDto from "Frontend/generated/com/example/application/data/model/dto/CommentDto";
+import PostDto from "Frontend/generated/com/example/application/data/model/dto/PostDto";
 import UserDto from "Frontend/generated/com/example/application/data/model/dto/UserDto";
+
 
 export interface ProfileModalProps {
     openEditCommentModal: boolean;
@@ -12,13 +13,11 @@ export interface ProfileModalProps {
 export interface EditCommentModalProps extends ProfileModalProps {
     commentItem: CommentDto | undefined;
     onHandleCloseAnchorElementCommentMenu: () => void;
-
     onFetchUpdatedComments(): Promise<void>;
 }
 
 export interface PostModalProps {
     postItem: PostDto | undefined;
-
     onFetchUpdatePosts(): Promise<void>;
 }
 
@@ -59,5 +58,11 @@ export interface MenuProps {
 export interface UserSuggestionProps {
     userSuggestion : UserDto;
     fetchUnfriendedUsers(): Promise<void>;
+}
+
+export interface DialogToDeleteUserAccountProps {
+    openConfirmDialog: boolean;
+    onHandleCloseConfirmDeleteProfileDialog: () => void;
+    onHandleDeleteAccount: () => void;
 }
 

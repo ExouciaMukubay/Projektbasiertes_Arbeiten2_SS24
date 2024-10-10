@@ -2,10 +2,14 @@ import SearchUserView from "Frontend/views/searchuser/searchuser";
 import UserSuggestionsCard from "Frontend/views/usersuggestions/usersuggestion";
 import {Card} from "@mui/material";
 import React, {useEffect, useRef, useState} from "react";
-import UserDto from "Frontend/generated/com/example/application/data/model/dto/UserDto";
 import {UserService} from "Frontend/generated/endpoints";
 import {useAuth} from "Frontend/util/auth";
+import UserDto from "Frontend/generated/com/example/application/data/model/dto/UserDto";
 
+/**
+ * Displays SearchUser and SuggestUser view
+ * @constructor
+ */
 export default function HomerightView() {
     const {state} = useAuth();
     const [unfriendedUsers, setUnfriendedUsers] = useState<UserDto[]>([]); // Zustand zum Speichern der Posts

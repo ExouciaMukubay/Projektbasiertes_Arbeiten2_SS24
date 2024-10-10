@@ -5,9 +5,7 @@ import Grid from '@mui/material/Grid2';
 import MiddlePartView from "Frontend/views/middlepart";
 import HomerightView from "Frontend/views/homeright";
 
-/**
- * Home View
- */
+
 export const config: ViewConfig = {
   menu: { order: 0, icon: 'line-awesome/svg/home-solid.svg' },
   title: 'Home',
@@ -23,6 +21,11 @@ const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#1A2027',
   }),
 }));
+
+/**
+ * Displays home view
+ * @constructor
+ */
 export default function HomeView() {
   return (
       <Box sx={{ flexGrow: 1 }}>

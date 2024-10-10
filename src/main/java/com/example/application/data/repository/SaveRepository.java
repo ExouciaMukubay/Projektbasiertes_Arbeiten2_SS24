@@ -10,8 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface SaveRepository  extends JpaRepository<Save, SaveKey> {
-
     Save findSaveByKey(SaveKey key);
-
     List<Save> findSaveByKeyPostId(UUID postId);
 }

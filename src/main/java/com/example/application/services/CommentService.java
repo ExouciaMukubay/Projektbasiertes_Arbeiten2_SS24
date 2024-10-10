@@ -19,6 +19,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Provides methods to create, update and delete comment and find all comments by given post
+ */
 @AnonymousAllowed
 @BrowserCallable
 @AllArgsConstructor
@@ -31,11 +34,18 @@ public class CommentService {
     private PostRepository postRepository;
 
 
-    public void createComment(UUID userId, UUID postId, CommentDto commentDto){
-        if(commentDto.getText().isBlank()){
+    /**
+     * Create comment
+     *
+     * @param userId
+     * @param postId
+     * @param commentDto
+     */
+    public void createComment(UUID userId, UUID postId, CommentDto commentDto) {
+        if (commentDto.getText().isBlank()) {
             log.error("Creating comment failed. Post is blank!");
             throw new CommentException("Post could not be created. Post has no content!");
-        }else{
+        } else {
             var user = userRepository.findUserById(userId);
             var post = postRepository.findPostById(postId);
             Comment createdComment = Comment.builder()
@@ -53,17 +63,18 @@ public class CommentService {
 
     /**
      * Update comment
+     *
      * @param commentDto
      * @return updated comment or non updated comment
      */
-    public CommentDto updateComment(CommentDto commentDto){
+    public CommentDto updateComment(CommentDto commentDto) {
         log.info("Update comment `{}` in progress!", commentDto.getText());
         var comment = commentRepository.findCommentById(commentDto.getId());
 
-        if(comment.getText().equals(commentDto.getText())){
-          log.info("Text was not changed. Update comment cancelled!");
-          return commentDto;
-        }else{
+        if (comment.getText().equals(commentDto.getText())) {
+            log.info("Text was not changed. Update comment cancelled!");
+            return commentDto;
+        } else {
             log.info("Text was changed. Update text in comment!");
             comment.setText(commentDto.getText());
             log.info("Update comment succeed!");
@@ -74,28 +85,35 @@ public class CommentService {
 
 
     /**
-     * Delet comment from user
-     * @param userId userId
+     * Delete comment
+     *
+     * @param userId     userId
      * @param commentDto commentDto
      */
     //explicit transaction needed for delete operation
     @Transactional
     public void deleteComment(UUID userId, CommentDto commentDto) {
         log.info("Delete comment {} by user {} in progress", commentDto.getText(), userId);
-        if(!commentDto.getUser().getId().equals(userId)){
+        if (!commentDto.getUser().getId().equals(userId)) {
             log.info("User cannot delete a comment which was not created by themselves.");
             throw new CommentException("Delete comment failed. Comment was not created by user!");
-        }else {
+        } else {
             commentRepository.deleteCommentById(commentDto.getId());
         }
     }
 
-    public List<CommentDto> findAllCommentsByGivenPost(UUID postId){
+    /**
+     * Find all comments by given post
+     *
+     * @param postId
+     * @return List<CommentDto> list of comments by given post
+     */
+    public List<CommentDto> findAllCommentsByGivenPost(UUID postId) {
         var comments = commentRepository.findAllByPostId(postId, Sort.by(Sort.Direction.DESC, "creationDateTime"));
 
         return comments
-                .stream().sorted(Comparator.comparing(Comment :: getCreationDateTime).reversed())
-                .map(CommentDto :: fromEntity)
+                .stream().sorted(Comparator.comparing(Comment::getCreationDateTime).reversed())
+                .map(CommentDto::fromEntity)
                 .toList();
     }
 }

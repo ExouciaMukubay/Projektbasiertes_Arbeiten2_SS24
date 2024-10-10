@@ -5,9 +5,9 @@ import {SyntheticEvent, useEffect, useRef, useState} from "react";
 import EditProfileView from "Frontend/views/profile/editprofile";
 import {PostService} from "Frontend/generated/endpoints";
 import PostCardView from "Frontend/views/posts/postcard";
-import PostDto from 'Frontend/generated/com/example/application/data/model/dto/PostDto';
 import {stringAvatar} from "Frontend/util/styling";
 import {useParams} from "react-router-dom";
+import PostDto from "Frontend/generated/com/example/application/data/model/dto/PostDto";
 
 
 export const config: ViewConfig = {
@@ -30,65 +30,64 @@ export default function UserProfileView() {
 
 
     useEffect(() => {
-
         fetchPosts();
         fetchAllLikedPosts();
         fetchAllSavedPosts();
     }, [])
 
-    const fetchPosts = async () =>{
+    const fetchPosts = async () => {
         // needed to canacel API calls when they are not needed anymore
         abortControllerRef.current?.abort();
         abortControllerRef.current = new AbortController();
         setIsLoading(true);
-        try{
+        try {
             const res = await PostService.findAllPostsByGivenUserId(state.user?.id as string);
             setCreatedPosts(res);
 
-        }catch (e: any){
-            if(e.name === "AbortError"){
+        } catch (e: any) {
+            if (e.name === "AbortError") {
                 console.log("Aborted");
                 return;
             }
-        }finally{
+        } finally {
             setIsLoading(false);
         }
     };
 
-    const fetchAllLikedPosts = async () =>{
+    const fetchAllLikedPosts = async () => {
         // needed to canacel API calls when they are not needed anymore
         abortControllerRef.current?.abort();
         abortControllerRef.current = new AbortController();
         setIsLoading(true);
-        try{
+        try {
             const res = await PostService.getLikedPostsFromUser(state.user?.id as string);
             setLikedPosts(res);
 
-        }catch (e: any){
-            if(e.name === "AbortError"){
+        } catch (e: any) {
+            if (e.name === "AbortError") {
                 console.log("Aborted");
                 return;
             }
-        }finally{
+        } finally {
             setIsLoading(false);
         }
     };
 
-    const fetchAllSavedPosts = async () =>{
+    const fetchAllSavedPosts = async () => {
         // needed to canacel API calls when they are not needed anymore
         abortControllerRef.current?.abort();
         abortControllerRef.current = new AbortController();
         setIsLoading(true);
-        try{
+        try {
             const res = await PostService.getSavedPostsFromUser(state.user?.id as string);
             setSavedPosts(res);
 
-        }catch (e: any){
-            if(e.name === "AbortError"){
+        } catch (e: any) {
+            if (e.name === "AbortError") {
                 console.log("Aborted");
                 return;
             }
-        }finally{
+        } finally {
             setIsLoading(false);
         }
     };
@@ -111,18 +110,20 @@ export default function UserProfileView() {
             {/*___:Add background image*/}
             <div className='rounded-md'>
                 <div className='h-[15rem]'>
-                    <img style={{width: "100rem", height: "20rem", borderTopLeftRadius: "0.375rem", borderTopRightRadius: "0.375rem"}} className='rounded-t-md'
-                         src='https://cdn.pixabay.com/photo/2014/04/02/10/17/glacier-gray-303360_1280.jpg'
-                         alt=''/>
+                    <img
+                        style={{width: "100rem", height: "20rem", borderTopLeftRadius: "0.375rem", borderTopRightRadius: "0.375rem"}}
+                        className='rounded-t-md'
+                        src='https://cdn.pixabay.com/photo/2014/04/02/10/17/glacier-gray-303360_1280.jpg'
+                        alt=''/>
                 </div>
-                <div style={{height:"80px"}} className='px-5 flex justify-between items-start mt-5 h-[5rem]'>
+                <div style={{height: "80px"}} className='px-5 flex justify-between items-start mt-5 h-[5rem]'>
                     <Avatar {...stringAvatar(`${state?.user?.firstname} ${state?.user?.lastname}`)}
                             style={{transform: "translateY(-100px)"}}
                             className='transition-transform -translate-y-100'
                             sx={{width: "10rem", height: "10rem"}}/>
 
                     {/*___: Add edit profile component*/}
-                   <EditProfileView/>
+                    <EditProfileView/>
                 </div>
 
                 {/*___: User profile */}
@@ -163,26 +164,33 @@ export default function UserProfileView() {
                         <div className='flex justify-center'>
                             {tabValue === "post" ? (
                                     <div className="space-y-5 w-[70%] my-10">
-                                        {isLoading && <h1 style={{fontSize: "16px", marginTop: "1.75rem"}}> Posts are loading...</h1>}
+                                        {isLoading &&
+                                            <h1 style={{fontSize: "16px", marginTop: "1.75rem"}}> Posts are loading...</h1>}
                                         {!isLoading &&
-                                        createdPosts.map((item) => (
-                                            <PostCardView key={item.id} postItem={item} onFetchUpdatePosts={fetchPosts}/>))}
+                                            createdPosts.map((item) => (
+                                                <PostCardView key={item.id} postItem={item}
+                                                              onFetchUpdatePosts={fetchPosts}/>))}
                                     </div>)
-                                    : tabValue === "liked" ? (
+                                : tabValue === "liked" ? (
                                         <div className="space-y-5 w-[70%] my-10">
-                                            {isLoading && <h1 style={{fontSize: "16px", marginTop: "1.75rem"}}> Posts are loading...</h1>}
+                                            {isLoading && <h1 style={{fontSize: "16px", marginTop: "1.75rem"}}> Posts are
+                                                loading...</h1>}
                                             {!isLoading && likedPosts &&
                                                 likedPosts.map((item) => (
-                                                    <PostCardView key={item.id} postItem={item} onFetchUpdatePosts={fetchPosts}/>))}
+                                                    <PostCardView key={item.id} postItem={item}
+                                                                  onFetchUpdatePosts={fetchPosts}/>))}
                                         </div>)
-                                        : tabValue === "saved" ? (
+                                    : tabValue === "saved" ? (
                                             <div className="space-y-5 w-[70%] my-10">
-                                                {isLoading && <h1 style={{fontSize: "16px", marginTop: "1.75rem"}}> Posts are loading...</h1>}
+                                                {isLoading &&
+                                                    <h1 style={{fontSize: "16px", marginTop: "1.75rem"}}> Posts are
+                                                        loading...</h1>}
                                                 {!isLoading && savedPosts &&
                                                     savedPosts.map((item) => (
-                                                        <PostCardView key={item.id} postItem={item} onFetchUpdatePosts={fetchPosts}/>))}
+                                                        <PostCardView key={item.id} postItem={item}
+                                                                      onFetchUpdatePosts={fetchPosts}/>))}
                                             </div>)
-                                            : ("")
+                                        : ("")
                             }
                         </div>
                     </section>

@@ -1,6 +1,5 @@
 import {Badge, styled} from "@mui/material";
 
-
 function stringToColor(string: string) {
     let hash = 0;
     let i;
@@ -20,6 +19,11 @@ function stringToColor(string: string) {
 
     return color;
 }
+
+/**
+ * Displays first letter of firstname and lastname in avatar
+ * @param name
+ */
 export function stringAvatar(name: string) {
     return {
         sx: {
@@ -82,3 +86,8 @@ export const boxStyleForCreatePost = {
     borderRadius: ".6rem",
     outline: "none"
 };
+
+export const responsiveSteps = [
+    {minWidth: '0', columns: 1},
+    {minWidth: '100px', columns: 2},
+];

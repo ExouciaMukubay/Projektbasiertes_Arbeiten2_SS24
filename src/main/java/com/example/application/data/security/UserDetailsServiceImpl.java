@@ -15,7 +15,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Retrieves user details from database like username, password and roles for login
+ * Provides methods to retrieves user details from database like username, password and roles for login
+ *
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

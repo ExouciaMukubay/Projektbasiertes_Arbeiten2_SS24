@@ -12,7 +12,6 @@ import lombok.*;
 public class SaveDto {
 
     private SaveKey key;
-
     public static SaveDto fromEntity(Save save) {
         return new SaveDto(save.getKey());
     }

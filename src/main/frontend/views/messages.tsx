@@ -8,23 +8,13 @@ export const config: ViewConfig = {
     loginRequired: true,
 };
 
+/**
+ * Displays message view
+ * @constructor
+ */
 export default function MessagesView() {
-    const maxFileSizeInMB = 10;
-    const maxFileSizeInBytes = maxFileSizeInMB * 1024 * 1024;
-
     return (
         <>
-       <>
-           {/* <h4>Upload file</h4>
-            <p>Maximum file size: {maxFileSizeInMB} MB</p>
-            <Upload
-                maxFiles={1}
-                maxFileSize={maxFileSizeInBytes}
-                onFileReject={(event) => {
-                    Notification.show(event.detail.error);
-                }}
-            />*/}
-        </>
         </>
     );
 }

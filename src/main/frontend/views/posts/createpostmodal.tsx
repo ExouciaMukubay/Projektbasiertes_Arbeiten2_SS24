@@ -10,6 +10,12 @@ import {MAX_POST_CONTENT_TEXT_LENGTH} from "Frontend/util/constants";
 import {PostService} from "Frontend/generated/endpoints";
 
 
+/**
+ * Displays post modal and provides methods to create post
+ * @param onHandleClosEditCommentModal
+ * @param openEditCommentModal
+ * @constructor
+ */
 //TODO:
 export default function CreatePostModal({onHandleClosEditCommentModal, openEditCommentModal}: ProfileModalProps) {
     const {state} = useAuth();
@@ -19,26 +25,13 @@ export default function CreatePostModal({onHandleClosEditCommentModal, openEditC
         imageUrl: '',
         userId: state.user?.id
     });
-    
     const [disablePostButton, setDisablePostButton] = useState(true);
-
-
 
     // const [selectedImage, setSelectedImage] = useState();
     //   const [selectedVideo, setSelectedVideo] = useState();
     //  const [isLoading, setIsLoading] = useState(false);
-    const handleSubmit = () => {
-
-
-    }
-
-    const handleSelectImage = () => {
-
-    }
-
-    const handleSelectVideo = () => {
-
-    }
+  //  const handleSelectImage = () => {}
+  //  const handleSelectVideo = () => {}
 
 
     const onHandleCreateNewPost = async () => {

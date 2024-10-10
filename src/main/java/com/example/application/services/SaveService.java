@@ -16,6 +16,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+
+/**
+ * Provides methods to get all saved posts from user and to save posts
+ */
 @AnonymousAllowed
 @BrowserCallable
 @AllArgsConstructor
@@ -30,6 +34,11 @@ public class SaveService {
     private final SaveRepository saveRepository;
 
 
+    /**
+     * Save post
+     * @param userId
+     * @param postId
+     */
     public void savePost(UUID userId, UUID postId) {
         log.info("Save processing userId: {} postId: {}", userId, postId);
         var user = userRepository.findUserById(userId);
@@ -53,14 +62,24 @@ public class SaveService {
         }
     }
 
+    /**
+     * Get all saved posts
+     * @param postId
+     * @return
+     */
     public List<SaveDto> getAllSavesFromPost(UUID postId){
         var saves = saveRepository.findSaveByKeyPostId(postId);
         return saves.stream().map(SaveDto :: fromEntity).toList();
     }
 
 
+    /**
+     * Build Savekey
+     * @param userId
+     * @param postId
+     * @return
+     */
     private SaveKey buildKey(UUID userId, UUID postId){
         return SaveKey.builder().userId(userId).postId(postId).build();
     }
-
 }

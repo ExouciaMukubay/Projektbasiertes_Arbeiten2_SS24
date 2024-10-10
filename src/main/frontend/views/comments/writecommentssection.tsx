@@ -11,7 +11,6 @@ import {WriteCommentProps} from "Frontend/util/postsprops";
  * @param onHandleCreateComment
  * @constructor
  */
-
 export default function WriteCommentsSection({setCreateComment, onHandleCreateComment}: WriteCommentProps){
     const {state} = useAuth();
 

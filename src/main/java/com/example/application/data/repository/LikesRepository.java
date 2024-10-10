@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface LikesRepository extends CrudRepository<Like, LikeKey> {
-
     Like findLikeByKey(LikeKey key);
-
     List<Like> findLikeByKeyPostId(UUID postId);
 }

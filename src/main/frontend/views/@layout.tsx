@@ -20,7 +20,7 @@ effect(() => {
 (window as any).Vaadin.documentTitleSignal = documentTitleSignal;
 
 /**
- * Defines layout and navigation of the application
+ * Defines layout and navigation for the app
  */
 export default function MainLayout() {
     const currentTitle = useViewConfig()?.title ?? defaultTitle;

@@ -15,6 +15,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+
+/**
+ * Provides methods to get all liked posts from user and to like posts
+ */
 @AnonymousAllowed
 @BrowserCallable
 @AllArgsConstructor
@@ -28,6 +32,11 @@ public class LikeService {
 
     private final LikesRepository likesRepository;
 
+    /**
+     * Like post
+     * @param userId
+     * @param postId
+     */
     public void likePost(UUID userId, UUID postId) {
         log.info("Like post processing under userId: {} and postId: {}", userId, postId);
         var user = userRepository.findUserById(userId);
@@ -51,11 +60,22 @@ public class LikeService {
         }
     }
 
+    /**
+     * Get all liked posts
+     * @param postId
+     * @return
+     */
     public List<LikeDto> getAllLikesFromPost(UUID postId){
         var likes = likesRepository.findLikeByKeyPostId(postId);
         return likes.stream().map(LikeDto :: fromEntity).toList();
     }
 
+    /**
+     * Build Likekey
+     * @param userId
+     * @param postId
+     * @return
+     */
     private LikeKey buildKey(UUID userId, UUID postId){
         return LikeKey.builder().userId(userId).postId(postId).build();
     }

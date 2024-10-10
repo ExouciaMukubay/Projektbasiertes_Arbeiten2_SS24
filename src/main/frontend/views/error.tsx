@@ -1,4 +1,4 @@
-import { ViewConfig } from '@vaadin/hilla-file-router/types.js';
+import {ViewConfig} from '@vaadin/hilla-file-router/types.js';
 
 export const config: ViewConfig = {
     route: '*',
@@ -7,6 +7,10 @@ export const config: ViewConfig = {
     },
 };
 
+/**
+ * Displays error view
+ * @constructor
+ */
 export default function ErrorView() {
     return <div className='p-l'>Page not found</div>;
 }

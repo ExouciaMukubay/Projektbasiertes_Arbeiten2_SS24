@@ -36,5 +36,6 @@ public class Friendship {
 
     private LocalDateTime createdAt;
 
+    // Flag to distinguish if user was the sender or not
     private UUID initiatedByUserId;
 }

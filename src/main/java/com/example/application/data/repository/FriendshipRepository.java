@@ -8,12 +8,8 @@ import java.util.List;
 import java.util.UUID;
 
 public interface FriendshipRepository extends JpaRepository<Friendship, UUID> {
-
     Friendship findFriendshipByUserIdAndFriendId(UUID userId, UUID friendId);
-
     List<Friendship> findAllByUserId(UUID user);
-
-    boolean existsFriendshipByUserIdAndFriendId(UUID userId, UUID friendId);
 
     List<Friendship> findFriendshipsByUserIdAndFriendshipStatus(UUID userId, FriendshipStatus friendshipStatus);
 }

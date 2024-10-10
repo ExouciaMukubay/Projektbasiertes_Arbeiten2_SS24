@@ -8,6 +8,7 @@ import {UserService} from "Frontend/generated/endpoints";
 import {ViewConfig} from '@vaadin/hilla-file-router/types.js';
 import {useAuth} from "Frontend/util/auth";
 import {Notification} from '@hilla/react-components/Notification.js';
+import {responsiveSteps} from "Frontend/util/styling";
 
 /**
  * View will be excluded from layout
@@ -16,24 +17,14 @@ export const config: ViewConfig = {
     menu: {exclude: true},
 };
 
+/**
+ * Displays sign up view
+ * @constructor
+ */
 export default function SignUpView() {
-
-    /**
-     * Initialize states for dialog -> set initially true for dialog is opened
-     */
-    const [dialogOpened, setDialogOpened] = useState(true);
-
     const {login} = useAuth();
     const navigate = useNavigate();
-
-    /**
-     * Set columns in one text field
-     */
-    const responsiveSteps = [
-        {minWidth: '0', columns: 1},
-        {minWidth: '100px', columns: 2},
-    ];
-
+    const [dialogOpened, setDialogOpened] = useState(true);
 
     /**
      * Set state for user object

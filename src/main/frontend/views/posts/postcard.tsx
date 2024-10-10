@@ -21,19 +21,19 @@ import {formatDate} from "Frontend/util/datehandler";
 import {CommentService, LikeService, PostService, SaveService} from "Frontend/generated/endpoints";
 import {Notification} from "@hilla/react-components/Notification";
 import {useAuth} from "Frontend/util/auth";
-import SaveDto from "Frontend/generated/com/example/application/data/model/dto/SaveDto";
-import CommentDto from "Frontend/generated/com/example/application/data/model/dto/CommentDto";
-import LikeDto from "Frontend/generated/com/example/application/data/model/dto/LikeDto";
 import {stringAvatar} from "Frontend/util/styling";
 import EditCommentModal from "Frontend/views/comments/editcommentmodal";
 import {PostModalProps} from "Frontend/util/postsprops";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import PostDto from "Frontend/generated/com/example/application/data/model/dto/PostDto";
 import CommentMenu from "Frontend/views/comments/commentmenu";
 import ShowComments from "Frontend/views/comments/showcomments";
 import WriteCommentsSection from "Frontend/views/comments/writecommentssection";
 import EditPostModal from "Frontend/views/posts/editpostmodal";
 import PostMenu from "Frontend/views/posts/postmenu";
+import CommentDto from "Frontend/generated/com/example/application/data/model/dto/CommentDto";
+import PostDto from "Frontend/generated/com/example/application/data/model/dto/PostDto";
+import LikeDto from "Frontend/generated/com/example/application/data/model/dto/LikeDto";
+import SaveDto from "Frontend/generated/com/example/application/data/model/dto/SaveDto";
 
 
 /**

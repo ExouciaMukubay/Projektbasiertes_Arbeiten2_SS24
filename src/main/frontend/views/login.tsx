@@ -29,7 +29,10 @@ const i18n = {
         password: 'Password is required'
     }
 };
-
+/**
+ * Displays login view
+ * @constructor
+ */
 export default function LoginView() {
     const {login} = useAuth();
     const loginError = useSignal(false);

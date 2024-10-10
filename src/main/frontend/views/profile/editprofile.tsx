@@ -14,8 +14,10 @@ import User from "Frontend/generated/com/example/application/data/model/User";
 import "Frontend/themes/hilla-social-media-app/styles.css";
 import {editProfileBoxStyle} from "Frontend/util/styling";
 
-//TODO: Styling: fenster anpassen und weiteres anpassen
-//TODO: profile picture, what happens when porfile picture is updates..?
+/**
+ * Displays view to edit profile
+ * @constructor
+ */
 export default function EditProfileView() {
     const {state, logout} = useAuth();
     const [openModal, setOpenModal] = useState(false);

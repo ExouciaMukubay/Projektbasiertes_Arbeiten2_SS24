@@ -5,14 +5,16 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import * as React from "react";
+import {DialogToDeleteUserAccountProps} from "Frontend/util/postsprops";
 
-interface DialogProps {
-    openConfirmDialog: boolean;
-    onHandleCloseConfirmDeleteProfileDialog: () => void;
-    onHandleDeleteAccount: () => void;
-}
-
-export default function CreateDialogDeleteAccount ({openConfirmDialog,onHandleCloseConfirmDeleteProfileDialog, onHandleDeleteAccount} : DialogProps){
+/**
+ * Creates dialog when user wants to delete his account
+ * @param openConfirmDialog
+ * @param onHandleCloseConfirmDeleteProfileDialog
+ * @param onHandleDeleteAccount
+ * @constructor
+ */
+export default function CreateDialogDeleteAccount ({openConfirmDialog,onHandleCloseConfirmDeleteProfileDialog, onHandleDeleteAccount} : DialogToDeleteUserAccountProps){
     return(
         <Dialog
             open={openConfirmDialog}

@@ -10,7 +10,13 @@ import {green, red} from "@mui/material/colors";
 import {UserSuggestionProps} from "Frontend/util/postsprops";
 import {Notification} from "@hilla/react-components/Notification";
 
-//TODO: Get Friends does not work
+/**
+ * Displays user to suggest send friend request
+ * @param userSuggestion
+ * @param fetchUnfriendedUsers
+ * @constructor
+ */
+//TODO: Bug Get Friends does not work
 export default function UserSuggestionsCard({userSuggestion, fetchUnfriendedUsers}: UserSuggestionProps) {
     const {state} = useAuth();
     const abortControllerRef = useRef<AbortController | null>(null);
