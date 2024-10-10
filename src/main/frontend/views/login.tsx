@@ -13,7 +13,7 @@ export const config: ViewConfig = {
 
 const i18n = {
     header: {
-        title: 'Social Media App by Exoucia Mukubay',
+        title: 'Social Media App by Exoucia M',
     },
     form: {
         title: 'Sign in',
