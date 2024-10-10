@@ -24,6 +24,7 @@ export default function HomerightView() {
         setIsLoading(true);
         try{
             const res = await UserService.findAllUnfriendedUsers(state.user?.id as string);
+            console.log(res.length);
             setUnfriendedUsers(res);
 
         }catch (e: any){
@@ -45,8 +46,8 @@ export default function HomerightView() {
                 {/* <p className="text-xs font-semibold opacity-95">View All</p> */}
             </div>
             <div className="userSuggestionCards">
-                {isLoading && <h1 style={{fontSize: "16px", marginTop: "1.75rem"}}> Posts are loading...</h1>}
-                {!isLoading && unfriendedUsers.map((item) => <UserSuggestionsCard key={item.id} userSuggestion={item}/>)}
+                {isLoading && <h1 style={{fontSize: "16px", marginTop: "1.75rem"}}> Suggested users are loading...</h1>}
+                {!isLoading && unfriendedUsers.map((item) => <UserSuggestionsCard key={item.id} userSuggestion={item} fetchUnfriendedUsers={fetchUnfriendedUsers}/>)}
             </div>
             </Card>
         </div>

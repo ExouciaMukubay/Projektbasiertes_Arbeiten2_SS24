@@ -2,13 +2,11 @@ package com.example.application.data.model.dto;
 
 import com.example.application.data.keys.LikeKey;
 import com.example.application.data.model.Like;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class LikeDto {

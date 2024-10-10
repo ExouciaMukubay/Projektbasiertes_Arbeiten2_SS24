@@ -1,11 +1,12 @@
 package com.example.application.data.model;
 
 import com.example.application.data.enums.FriendshipStatus;
-import com.example.application.data.keys.FriendshipKey;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "friendship")
@@ -16,16 +17,17 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Friendship {
 
-    @EmbeddedId
-    private FriendshipKey key;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @ManyToOne(optional = false)
-    @MapsId("userId")
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne(optional = false)
-    @MapsId("friendId")
+    @JsonIgnore
     @JoinColumn(name = "friend_id")
     private User friend;
 
@@ -33,4 +35,6 @@ public class Friendship {
     private FriendshipStatus friendshipStatus;
 
     private LocalDateTime createdAt;
+
+    private UUID initiatedByUserId;
 }

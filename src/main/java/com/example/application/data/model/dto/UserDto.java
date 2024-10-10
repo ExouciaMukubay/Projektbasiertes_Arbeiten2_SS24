@@ -8,8 +8,8 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Getter
-@ToString
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {

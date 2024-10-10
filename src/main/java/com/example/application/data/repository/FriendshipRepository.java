@@ -1,16 +1,19 @@
 package com.example.application.data.repository;
 
 import com.example.application.data.enums.FriendshipStatus;
-import com.example.application.data.keys.FriendshipKey;
 import com.example.application.data.model.Friendship;
-import com.example.application.data.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.UUID;
 
-public interface FriendshipRepository extends JpaRepository<Friendship, FriendshipKey> {
+public interface FriendshipRepository extends JpaRepository<Friendship, UUID> {
 
-    Friendship findFriendshipByKey(FriendshipKey key);
+    Friendship findFriendshipByUserIdAndFriendId(UUID userId, UUID friendId);
 
-    List<Friendship> findFriendshipsByUserAndFriendshipStatus(User user, FriendshipStatus friendshipStatus);
+    List<Friendship> findAllByUserId(UUID user);
+
+    boolean existsFriendshipByUserIdAndFriendId(UUID userId, UUID friendId);
+
+    List<Friendship> findFriendshipsByUserIdAndFriendshipStatus(UUID userId, FriendshipStatus friendshipStatus);
 }

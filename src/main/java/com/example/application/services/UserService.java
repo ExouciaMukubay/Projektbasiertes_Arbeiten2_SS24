@@ -6,6 +6,7 @@ import com.example.application.data.model.Like;
 import com.example.application.data.model.User;
 import com.example.application.data.model.dto.PostDto;
 import com.example.application.data.model.dto.UserDto;
+import com.example.application.data.repository.FriendshipRepository;
 import com.example.application.data.repository.UserRepository;
 import com.example.application.exceptions.UserNotFoundException;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
@@ -20,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Provides methods to find, add, update and delete user
@@ -32,6 +34,7 @@ import java.util.*;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final FriendshipRepository friendshipRepository;
 
     //TODO: friendshiprepo, messages, unc.co
 
@@ -203,10 +206,10 @@ public class UserService {
         userRepository.delete(userRepository.findUserById(userDto.getId()));
     }
 
-    //TODO: Friendship DTO?
-    public Set<Friendship> getAllFriendsFromUser(UUID userId){
+    public Set<UserDto> getAllFriendsFromUser(UUID userId){
         log.info("Get all friends from user {} in progress!", userId);
-        return userRepository.findUserById(userId).getFriends();
+      return friendshipRepository.findAllByUserId(userId).stream().map(Friendship::getFriend).
+              map(UserDto :: fromEntity).collect(Collectors.toSet());
     }
 
     /**

@@ -2,6 +2,7 @@ import CommentDto from "Frontend/generated/com/example/application/data/model/dt
 import PostDto from "Frontend/generated/com/example/application/data/model/dto/PostDto";
 import * as React from "react";
 import User from "Frontend/generated/com/example/application/data/model/User";
+import UserDto from "Frontend/generated/com/example/application/data/model/dto/UserDto";
 
 export interface ProfileModalProps {
     openEditCommentModal: boolean;
@@ -53,5 +54,10 @@ export interface MenuProps {
     setAnchorElementItemMenu: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
     setOpenEditItemModal: React.Dispatch<React.SetStateAction<boolean>>;
     onSendDeleteRequestOnSelectedItem(): Promise<void>;
+}
+
+export interface UserSuggestionProps {
+    userSuggestion : UserDto;
+    fetchUnfriendedUsers(): Promise<void>;
 }
 

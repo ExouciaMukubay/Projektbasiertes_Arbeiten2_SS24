@@ -2,16 +2,14 @@ package com.example.application.data.model.dto;
 
 import com.example.application.data.model.Comment;
 import com.example.application.data.model.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentDto {
