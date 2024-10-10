@@ -17,7 +17,8 @@ import java.util.UUID;
 @Table(name = "social_media_user")
 @Getter
 @Setter
-@Builder(toBuilder = true)
+@Builder()
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class User{
@@ -61,27 +62,30 @@ public class User{
     @NotNull
     private Set<Role> roles = new HashSet<>();
 
-//    @Column(name = "profilePictureUrl")
+//    @Column(name = "profilepictureurl")
 //    private String profilePictureUrl;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    // @Column(name = "backgroundpictureurl")
+//    private String backgroundPictureUrl;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Like> likedPosts = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Save> savedPosts = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Post> createdPosts = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Comment> comments = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Friendship> friends = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Message> messages = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<UserChat> userChat = new HashSet<>();
 }

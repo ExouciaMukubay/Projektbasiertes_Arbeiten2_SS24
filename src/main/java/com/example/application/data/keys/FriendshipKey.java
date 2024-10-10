@@ -11,6 +11,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Builder(toBuilder = true)
 @Embeddable
 public class FriendshipKey implements Serializable {

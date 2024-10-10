@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "chatOverview")
+@Table(name = "chatoverview")
 @Getter
 @Setter
 @Builder
@@ -23,7 +23,7 @@ public class ChatOverview {
     @OneToOne
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "chatOverview",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<ChatOverviewChats> chatOverviewChats = new HashSet<>();
 
 }

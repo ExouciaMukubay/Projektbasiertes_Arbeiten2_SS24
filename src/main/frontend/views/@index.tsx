@@ -5,7 +5,6 @@ import Grid from '@mui/material/Grid2';
 import MiddlePartView from "Frontend/views/middlepart";
 import HomerightView from "Frontend/views/homeright";
 
-
 /**
  * Home View
  */
@@ -31,7 +30,7 @@ export default function HomeView() {
             {/* Add two grid items */}
 
             {/* Add grid item: HomeRightView*/}
-            <Grid display="flex" justifyContent="center" alignItems="center" size="grow">
+            <Grid display="flexgrow" justifyContent="center" alignItems="center" size="grow">
             <MiddlePartView></MiddlePartView>
              </Grid>
             {/*___:Add grid item: HomeRightView*/}

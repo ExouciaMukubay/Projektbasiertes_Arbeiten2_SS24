@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
+/**
+ * AuthenticatedUserService gets authenticated user
+ */
 @Endpoint
 @AnonymousAllowed
 public class AuthenticatedUserService {

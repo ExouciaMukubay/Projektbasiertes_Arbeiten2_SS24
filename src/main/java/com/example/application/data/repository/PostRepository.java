@@ -11,11 +11,12 @@ import java.util.UUID;
 @Repository
 public interface PostRepository extends JpaRepository<Post, UUID> {
 
-    List<Post> findAllByUserId(UUID userId);
+    List<Post> findAllByUserId(UUID userId, Sort sort);
 
     List<Post> findAllByUserIdIn(List<UUID> userIds, Sort sort);
 
     Post findPostById(UUID id);
 
     void deletePostById(UUID id);
+
 }

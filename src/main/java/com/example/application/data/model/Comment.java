@@ -1,11 +1,8 @@
 package com.example.application.data.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -14,6 +11,7 @@ import java.util.UUID;
 @Table(name = "comments")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Comment {
@@ -21,22 +19,19 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(name = "content")
-    @NotNull
-    private String content;
+    @Column(name = "text")
+    private String text;
 
-    @Column(name = "creationDate")
-    @NotNull
+    @Column(name = "creationdatetime")
     private LocalDateTime creationDateTime;
 
-    @Column(name = "imageUrl")
-    private String imageUrl;
-
     @ManyToOne(optional = false)
-    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    @JoinColumn(name = "userid")
     private User user;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "post_id")
+    @JsonIgnore
+    @JoinColumn(name = "postid")
     private Post post;
 }

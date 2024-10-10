@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -19,10 +21,23 @@ public class PostDto {
     private LocalDateTime creationDateTime;
     private String imageUrl;
     private String content;
-    private UUID userId;
+    private UserDto user;
+    private Set<CommentDto> comments;
+    private Set<LikeDto> likes;
+    private Set<SaveDto> saves;
 
-    public static PostDto fromEntity(Post post){
-        return new PostDto(post.getId(), post.getCreationDateTime(), post.getImageUrl(),post.getContent(),
-                post.getUser().getId());
+    public static PostDto fromEntity(Post post) {
+        return new PostDto(post.getId(), post.getCreationDateTime(), post.getImageUrl(), post.getContent(),
+                UserDto.fromEntity(post.getUser()),
+                post.getComments().stream()
+                        .map(CommentDto::fromEntity)
+                        .collect(Collectors.toSet()),
+                post.getLikes().stream()
+                        .map(LikeDto::fromEntity)
+                        .collect(Collectors.toSet()),
+                post.getSaves().stream()
+                        .map(SaveDto::fromEntity)
+                        .collect(Collectors.toSet())
+        );
     }
 }

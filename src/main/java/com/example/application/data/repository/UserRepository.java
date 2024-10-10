@@ -18,8 +18,9 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     User deleteUserById(UUID id);
     User deleteUserByUsername(String username);
 
-    @Query("SELECT u FROM User u WHERE u.firstname LIKE %:query% OR u.lastname LIKE %:query% OR u.username LIKE " +
-            "%:query% OR u.email LIKE %:query%")
+    @Query("SELECT u FROM User u WHERE LOWER(u.firstname) LIKE LOWER(CONCAT('%', :query, '%')) " +
+            "OR LOWER(u.lastname) LIKE LOWER(CONCAT('%', :query, '%')) " +
+            "OR LOWER(u.username) LIKE LOWER(CONCAT('%', :query, '%')) ")
     List<User> searchUser(@Param("query") String query);
 
 }

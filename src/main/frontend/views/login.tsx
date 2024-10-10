@@ -50,8 +50,6 @@ export default function LoginView() {
                     } else {
                         const url = redirectUrl ?? defaultUrl ?? '/home';
                         const path = new URL(url, document.baseURI).pathname;
-                        console.log(document.baseURI);
-                        console.log(path.toString());
                         document.location = path;
                     }
                 }}

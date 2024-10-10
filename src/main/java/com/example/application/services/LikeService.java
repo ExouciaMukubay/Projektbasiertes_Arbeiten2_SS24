@@ -2,6 +2,7 @@ package com.example.application.services;
 
 import com.example.application.data.keys.LikeKey;
 import com.example.application.data.model.Like;
+import com.example.application.data.model.dto.LikeDto;
 import com.example.application.data.repository.LikesRepository;
 import com.example.application.data.repository.PostRepository;
 import com.example.application.data.repository.UserRepository;
@@ -11,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @AnonymousAllowed
@@ -27,30 +29,31 @@ public class LikeService {
     private final LikesRepository likesRepository;
 
     public void likePost(UUID userId, UUID postId) {
-        log.info("Like post with id {}", postId);
-
+        log.info("Like post processing under userId: {} and postId: {}", userId, postId);
         var user = userRepository.findUserById(userId);
         var post = postRepository.findPostById(postId);
-        var like = Like.builder().key(buildKey(userId, postId)).user(user).post(post).build();
+        var existingLike = likesRepository.findLikeByKey(buildKey(userId, postId));
 
-        post.getLikes().add(like);
-        user.getLikedPosts().add(like);
-        likesRepository.save(like);
-          log.info("Like post with id {} succeed", postId);
+        if (existingLike != null) {
+            log.info("Like already exists on post with id {}", postId);
+            post.getLikes().remove(existingLike);
+            user.getLikedPosts().remove(existingLike);
+            likesRepository.delete(existingLike);
+            log.info("Remove like from post with id {} succeed", postId);
 
+        } else {
+            log.info("Like does not exist on post with id {}. Proceeding to add.", postId);
+            var like = Like.builder().key(buildKey(userId, postId)).user(user).post(post).build();
+            likesRepository.save(like);
+            post.getLikes().add(like);
+            user.getLikedPosts().add(like);
+            log.info("Like post with id {} succeed", postId);
+        }
     }
 
-    public void removeLikeFromPost(UUID userId, UUID postId) {
-        log.info("Remove like from post with id {}", postId);
-
-        var user = userRepository.findUserById(userId);
-        var post = postRepository.findPostById(postId);
-
-        var like = likesRepository.findLikeByKey(buildKey(userId, postId));
-        post.getLikes().remove(like);
-        user.getLikedPosts().remove(like);
-        likesRepository.delete(like);
-        log.info("Remove like from post with id {} succeed", postId);
+    public List<LikeDto> getAllLikesFromPost(UUID postId){
+        var likes = likesRepository.findLikeByKeyPostId(postId);
+        return likes.stream().map(LikeDto :: fromEntity).toList();
     }
 
     private LikeKey buildKey(UUID userId, UUID postId){

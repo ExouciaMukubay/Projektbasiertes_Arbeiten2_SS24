@@ -5,7 +5,7 @@ import com.example.application.data.keys.FriendshipKey;
 import com.example.application.data.model.Friendship;
 import com.example.application.data.repository.FriendshipRepository;
 import com.example.application.data.repository.UserRepository;
-import com.example.application.exceptions.FriendshipDoesNotExist;
+import com.example.application.exceptions.FriendshipDoesNotExistException;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- *
+ * Manages friendships
  */
 @AnonymousAllowed
 @BrowserCallable
@@ -101,7 +101,7 @@ public class FriendshipService {
         var friendship = friendshipRepository.findFriendshipByKey(key);
         if (friendship == null) {
             log.error("Friendship does not exist in database");
-            throw new FriendshipDoesNotExist("Friendship does not exist!");
+            throw new FriendshipDoesNotExistException("Friendship does not exist!");
         }
 
         return friendship;

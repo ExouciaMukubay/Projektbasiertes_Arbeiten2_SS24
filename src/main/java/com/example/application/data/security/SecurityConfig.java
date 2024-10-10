@@ -10,6 +10,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+/**
+ * Provides methods to configure https requests ans set login view
+ */
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends VaadinWebSecurity {
@@ -27,7 +30,6 @@ public class SecurityConfig extends VaadinWebSecurity {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //TODO: At end change to "hasRole("ADMIN");
         //Allows access to the H2 database console without authentication.
         http.authorizeHttpRequests(auth ->
                         auth.requestMatchers(

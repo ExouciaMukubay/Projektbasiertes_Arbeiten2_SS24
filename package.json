@@ -57,6 +57,7 @@
     "@vitejs/plugin-react": "4.3.1",
     "async": "3.2.5",
     "autoprefixer": "^10.4.20",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "glob": "10.4.1",
     "postcss": "^8.4.47",
     "rollup-plugin-brotli": "3.1.0",
@@ -130,7 +131,7 @@
       "workbox-core": "7.1.0",
       "workbox-precaching": "7.1.0"
     },
-    "hash": "80c73b856f900f4a9d74f7d706be42a8c5592f00eaa9612d4c998542249c0e8a"
+    "hash": "4f5e7d7bf66ceb8c81a4c71b68fe26ca2fce6e8394ed19b329f8bd4aa3d586ba"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",

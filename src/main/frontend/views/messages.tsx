@@ -1,7 +1,5 @@
 import {ViewConfig} from '@vaadin/hilla-file-router/types.js';
 import * as React from "react";
-import {Notification} from '@hilla/react-components/Notification.js';
-import {Upload} from '@hilla/react-components/Upload.js';
 
 
 export const config: ViewConfig = {
@@ -17,7 +15,7 @@ export default function MessagesView() {
     return (
         <>
        <>
-            <h4>Upload file</h4>
+           {/* <h4>Upload file</h4>
             <p>Maximum file size: {maxFileSizeInMB} MB</p>
             <Upload
                 maxFiles={1}
@@ -25,7 +23,7 @@ export default function MessagesView() {
                 onFileReject={(event) => {
                     Notification.show(event.detail.error);
                 }}
-            />
+            />*/}
         </>
         </>
     );

@@ -43,7 +43,9 @@ export default function SignUpView() {
         lastName: '',
         username: '',
         email: '',
-        password: ''
+        password: '',
+        likedPosts: [],
+        online: true
     });
 
     /**

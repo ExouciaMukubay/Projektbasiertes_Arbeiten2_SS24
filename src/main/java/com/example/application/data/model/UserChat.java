@@ -1,6 +1,7 @@
 package com.example.application.data.model;
 
 import com.example.application.data.keys.UserChatKey;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class UserChat {
 
     @ManyToOne
     @MapsId("chatId")
+    @JsonIgnore
     @JoinColumn(name = "chat_id")
     private Chat chat;
 

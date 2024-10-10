@@ -1,5 +1,6 @@
 package com.example.application.data.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,11 +26,13 @@ public class Message {
     private String text;
 
     @ManyToOne
-    private User fromUser;
+    @JsonIgnore
+    private User user;
 
     @OneToOne
     private User toUser;
 
     @ManyToOne
+    @JsonIgnore
     private Chat chat;
 }
