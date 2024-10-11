@@ -41,7 +41,4 @@ INSERT INTO comments(id, text, creationdatetime, userid, postid) VALUES
 ('94d1df99-715e-4a25-9912-53518ceaac8d', 'I agree with you', '2024-10-09 19:12:57.750622', 'ea837494-9719-464d-ab71-8f3f941fe7c7','98846443-7ce4-4e7d-9e94-78522efb82ac');
 
 
-/*TODO: friends, messages... */
-
-
 

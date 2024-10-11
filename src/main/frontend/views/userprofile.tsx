@@ -137,7 +137,7 @@ export default function UserProfileView() {
                     </div>
                     <div className="flex gap-5 items-center py-2">
                         <span style={{display: "block"}}>{createdPosts.length} Posts</span>
-                        <span style={{display: "block", padding: "10px"}}>35 Friends</span>
+                        <span style={{display: "block", padding: "10px"}}>{state?.user?.friends?.length} Friends</span>
                     </div>
 
                     {/*___:Add tabs*/}
